@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:demoappck/presentation/page/bang_gia.dart';
 import 'core/models/network_service_response.dart';
+import 'core/implements/http_client.dart';
+import 'package:demoappck/core/models/account_login.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,7 +50,7 @@ class MyApp extends StatelessWidget {
           overline: TextStyle(fontFamily: 'NotoSans'),
         ),
       ),
-      home: MyHomePage(title: 'VNPT Security'),
+      home: MyHomePage(title: 'Demo chứng khoán'),
     );
   }
 }
@@ -85,14 +87,23 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: FlutterLogin(
             onSignup: (data) {},
+            userType: LoginUserType.phone,
             onSubmitAnimationCompleted: (data) {
               print('on complete');
+
               Navigator.pop(
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) => BangGiaPage()));
             },
+            hideForgotPasswordButton: true,
+            hideSignUpButton: true,
             onLogin: (data) {
+              var loginData = new AccountLogin(
+                  username: data.name, password: data.password);
+              RestClient().getAccessToken(loginData).then((value) {
+                print(value);
+              });
               print('on login');
               Navigator.pushReplacement(
                   context,

@@ -97,7 +97,7 @@ class _BangGiaState extends State<BangGiaPage> {
                     verticalAlignment: TableCellVerticalAlignment.middle,
                     child: Container(
                       child: Text(
-                        '86.0',
+                        '99.9',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.green, fontWeight: FontWeight.bold),
@@ -125,65 +125,18 @@ class _BangGiaState extends State<BangGiaPage> {
                   ),
                 ],
               ),
-              TableRow(
-                children: <Widget>[
-                  TableRowInkWell(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  TransactionPage()));
-                    },
-                    child: Container(
-                      height: 42,
-                      width: 128,
-                      child: Center(
-                        child: Text(
-                          'FLC',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.green, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: Container(
-                      child: Text(
-                        '16.5',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.green, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: Container(
-                      child: Text(
-                        '4.2%',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.green, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      '1.000.000',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.green, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
             ],
           )
         ],
       ),
     );
+  }
+
+  void showAlertMesg(String mesg) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Container();
+        });
   }
 }

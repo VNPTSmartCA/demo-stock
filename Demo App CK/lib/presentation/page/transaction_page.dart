@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demoappck/presentation/page/bang_gia.dart';
+import 'package:demoappck/core/implements/http_client.dart';
 
 class TransactionPage extends StatefulWidget {
   @override
@@ -48,12 +49,17 @@ class _TransactionPageStage extends State<TransactionPage> {
             SizedBox(
               height: 10,
             ),
-            itemsRow('Giá', '86.2'),
+            itemsRow('Giá', '99.9'),
             SizedBox(
               height: 10,
             ),
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                //get tranID
+                RestClient().createTrans().then((tranID) {
+                  print('tranId: $tranID');
+                });
+              },
               child: Text(
                 'Xác nhận',
                 style: TextStyle(color: Colors.white),
