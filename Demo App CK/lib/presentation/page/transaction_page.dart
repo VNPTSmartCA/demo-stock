@@ -53,6 +53,7 @@ class _TransactionPageStage extends State<TransactionPage> {
             SizedBox(
               height: 10,
             ),
+            // ignore: deprecated_member_use
             FlatButton(
               onPressed: () {
                 //get tranID

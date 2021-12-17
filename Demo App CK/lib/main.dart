@@ -1,7 +1,7 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:demoappck/presentation/page/bang_gia.dart';
-import 'core/models/network_service_response.dart';
 import 'core/implements/http_client.dart';
 import 'package:demoappck/core/models/account_login.dart';
 
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key key, @required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -86,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: FlutterLogin(
+            // ignore: missing_return
             onSignup: (data) {},
             userType: LoginUserType.phone,
             onSubmitAnimationCompleted: (data) {
@@ -98,9 +99,13 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             hideForgotPasswordButton: true,
             hideSignUpButton: true,
+            // ignore: missing_return
             onLogin: (data) {
               var loginData = new AccountLogin(
-                  username: data.name, password: data.password);
+                  username: '1256841761234', password: '123456a@A'
+                  // username: data.name,
+                  // password: data.password,
+                  );
               RestClient().getAccessToken(loginData).then((value) {
                 print(value);
               });
@@ -110,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(
                       builder: (BuildContext context) => BangGiaPage()));
             },
+            // ignore: missing_return
             onRecoverPassword: (data) {}),
       ),
     );
