@@ -44,9 +44,9 @@ class RestClient {
       await FlutterSession().set("token", res);
 
       return new NetworkServiceResponse(
-          content: res,
-          success: result.networkServiceResponse.success,
-          message: '');
+        content: res,
+        success: result.networkServiceResponse.success,
+      );
     }
     return new NetworkServiceResponse(
         success: result.networkServiceResponse.success,

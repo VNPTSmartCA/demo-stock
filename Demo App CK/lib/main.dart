@@ -88,41 +88,30 @@ class _MyHomePageState extends State<MyHomePage> {
         child: FlutterLogin(
             onSignup: (data) {},
             userType: LoginUserType.phone,
-            messages: LoginMessages(
-                userHint: 'Tên đăng nhập',
-                passwordHint: 'Mật khẩu',
-                loginButton: 'Đăng nhập'),
-            onSubmitAnimationCompleted: (data) {},
+            onSubmitAnimationCompleted: (data) {
+              print('on complete');
+
+              Navigator.pop(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => BangGiaPage()));
+            },
             hideForgotPasswordButton: true,
             hideSignUpButton: true,
             onLogin: (data) {
-              return onLogin(data.name, data.password);
-
-              // var loginData = new AccountLogin(
-              //     username: data.name, password: data.password);
-              // RestClient().getAccessToken(loginData).then((value) {
-              //   print(value);
-              // });
-              // print('on login');
+              var loginData = new AccountLogin(
+                  username: data.name, password: data.password);
+              RestClient().getAccessToken(loginData).then((value) {
+                print(value);
+              });
+              print('on login');
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => BangGiaPage()));
             },
             onRecoverPassword: (data) {}),
       ),
     );
-  }
-
-  Future<String> onLogin(String userName, String pass) {
-    var loginData = new AccountLogin(username: userName, password: pass);
-    return RestClient().getAccessToken(loginData).then((value) {
-      // return 'User not exists';
-      if (!value.success) {
-        return value.message;
-      } else {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => BangGiaPage()));
-        return '';
-      }
-    });
   }
 }
