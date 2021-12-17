@@ -30,6 +30,11 @@ class MainActivity: FlutterActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.i(VNPTSmartCAConfig.VNPT_SMARTCA_LOG_TAG, "resultCode: $resultCode" + "data: ${data.toString()}");
+        if (resultCode == 0) {
+            val status = data?.extras?.getInt("status");
+            val message = data?.extras?.getString("message");
+            Log.i(VNPTSmartCAConfig.VNPT_SMARTCA_LOG_TAG, "status: ${status.toString()}");
+            Log.i(VNPTSmartCAConfig.VNPT_SMARTCA_LOG_TAG, "message: $message");
+        }
     }
 }

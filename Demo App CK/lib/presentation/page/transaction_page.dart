@@ -1,3 +1,4 @@
+import 'package:demoappck/services/VNPTSmartCAChannel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demoappck/presentation/page/bang_gia.dart';
@@ -58,6 +59,7 @@ class _TransactionPageStage extends State<TransactionPage> {
               onPressed: () {
                 //get tranID
                 RestClient().createTrans().then((tranID) {
+                  VNPTSmartCAChannel.instance.requestMapping(tranID, "partnerStockVNPTSmartCA");
                   print('tranId: $tranID');
                 });
               },
