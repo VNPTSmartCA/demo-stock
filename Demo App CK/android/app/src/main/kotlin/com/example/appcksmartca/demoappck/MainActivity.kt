@@ -28,7 +28,6 @@ class MainActivity: FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, channelDeeplink).setMethodCallHandler { call, result ->
             if (call.method.equals("OpenVNPTSmartCA")) {
                 val data = call.arguments<HashMap<String, String>>()
-//                eventReceivers = createChangeReceiver(call)
                 Transaction.getInstance().requestVNPTSmartCACallback(this, data)
                 result.success("Open Successfully")
             } else {
@@ -39,12 +38,8 @@ class MainActivity: FlutterActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        Log.i(VNPTSmartCAConfig.VNPT_SMARTCA_LOG_TAG, "data: ${data.toString()}");
-//        eventReceivers?.onReceive(context, data)
         if (resultCode == 0) {
             val json = JSONObject()
-
 
             val status = data?.extras?.getInt("status");
             val message = data?.extras?.getString("message");
@@ -53,8 +48,6 @@ class MainActivity: FlutterActivity() {
             json.put("message", message)
 
             methodChannel?.invokeMethod("SendResultFromVNPTSmartCA", json.toString())
-            Log.i(VNPTSmartCAConfig.VNPT_SMARTCA_LOG_TAG, "status: ${status.toString()}")
-            Log.i(VNPTSmartCAConfig.VNPT_SMARTCA_LOG_TAG, "message: $message")
         }
     }
 }

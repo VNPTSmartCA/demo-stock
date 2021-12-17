@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - VNPTSmartCAiOSSDK (1.0.8)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - VNPTSmartCAiOSSDK
+
+SPEC REPOS:
+  trunk:
+    - VNPTSmartCAiOSSDK
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  VNPTSmartCAiOSSDK: 2c417d8f26a3fa570527d007558bde5b2ce71d80
+
+PODFILE CHECKSUM: c030be212c09497f1c9c28387f4b6ff472548cdc
+
+COCOAPODS: 1.11.2

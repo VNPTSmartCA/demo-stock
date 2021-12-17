@@ -41,5 +41,26 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLName</key>
+        <string></string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>partnerStockVNPTSmartCA</string>
+        </array>
+      </dict>
+    </array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>vnptsmartca</string>
+      <string>vnptsmartcademo</string>
+    </array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+      <key>NSAllowsArbitraryLoads</key>
+      <true/>
+    </dict>
 </dict>
 </plist>
