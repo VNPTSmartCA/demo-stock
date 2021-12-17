@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
+
 class NetworkServiceResponse<T> {
   T? content;
   bool success;
-  String? message;
+  String message;
 
-  NetworkServiceResponse({this.content, required this.success, this.message});
+  NetworkServiceResponse(
+      {this.content, required this.success, required this.message});
 }
 
 class MappedNetworkServiceResponse<T> {

@@ -1,4 +1,3 @@
-import 'package:demoappck/services/VNPTSmartCAChannel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demoappck/presentation/page/bang_gia.dart';
@@ -54,13 +53,13 @@ class _TransactionPageStage extends State<TransactionPage> {
             SizedBox(
               height: 10,
             ),
-            // ignore: deprecated_member_use
             FlatButton(
               onPressed: () {
                 //get tranID
                 RestClient().createTrans().then((tranID) {
-                  VNPTSmartCAChannel.instance.requestMapping(tranID, "partnerStockVNPTSmartCA");
                   print('tranId: $tranID');
+                  showSuccessDialog("Thông báo",
+                      "Vui lòng xác nhận giao dịch trên ứng dụng VNPT SmartCA");
                 });
               },
               child: Text(
@@ -104,5 +103,68 @@ class _TransactionPageStage extends State<TransactionPage> {
         ],
       ),
     );
+  }
+
+  void showSuccessDialog(String title, String mesg) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            child: Wrap(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Center(
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.headline6,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 8,
+                  ),
+                  child: RichText(
+                    text: TextSpan(
+                      text: mesg,
+                      children: [
+                        TextSpan(
+                          text: '',
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                      ],
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'Xác nhận',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    color: Colors.blue,
+                  ),
+                )
+              ],
+            ),
+          );
+        });
   }
 }

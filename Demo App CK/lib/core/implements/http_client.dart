@@ -5,7 +5,6 @@ import 'package:demoappck/core/models/data_sign.dart';
 import 'package:demoappck/core/models/network_service_response.dart';
 import 'dart:convert';
 import 'dart:io';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_session/flutter_session.dart';
 
 import 'package:http/io_client.dart';
@@ -30,7 +29,6 @@ class RestClient {
         .post(url, body: content, encoding: Encoding.getByName("utf-8"))
         .timeout(timeout);
     var result = processResponse(res);
-    // ignore: unnecessary_null_comparison
     if (result == null) {
       return new NetworkServiceResponse(
         success: false,
@@ -46,9 +44,9 @@ class RestClient {
       await FlutterSession().set("token", res);
 
       return new NetworkServiceResponse(
-        content: res,
-        success: result.networkServiceResponse.success,
-      );
+          content: res,
+          success: result.networkServiceResponse.success,
+          message: '');
     }
     return new NetworkServiceResponse(
         success: result.networkServiceResponse.success,
@@ -114,7 +112,6 @@ class RestClient {
   };
 
   MappedNetworkServiceResponse<T> processResponse<T>(http.Response response) {
-    // ignore: unnecessary_null_comparison
     if (!((response.statusCode != 200) || (response.body == null))) {
       var jsonResult = response.body;
       dynamic resultClass = jsonDecode(jsonResult);
