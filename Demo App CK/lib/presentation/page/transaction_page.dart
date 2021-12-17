@@ -10,6 +10,29 @@ class TransactionPage extends StatefulWidget {
 }
 
 class _TransactionPageStage extends State<TransactionPage> {
+
+  late int status;
+  late String message;
+
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    VNPTSmartCAChannel.platformResult.setMethodCallHandler((call) => VNPTSmartCAChannel.instance.receiveFromNative(call).then((value) => {
+      if (value["status"] == "0") {
+        if (value["message"] == "REJECT_SUCCESS") {
+          showSuccessDialog("Thông báo", "Đã hủy giao dịch", "1")
+        } else {
+          showSuccessDialog("Thông báo", "Giao dịch thành công", value["status"])
+        }
+      } else {
+        showSuccessDialog("Thông báo", "Đã có lỗi xảy ra. Vui lòng thử lại", value["status"])
+      }
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,20 +79,15 @@ class _TransactionPageStage extends State<TransactionPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                //get tranID
                 RestClient().createTrans().then((tranID) {
-                  print('tranId: $tranID');
                   VNPTSmartCAChannel.instance
                       .requestMapping(tranID, "partnerStockVNPTSmartCA");
-                  // showSuccessDialog("Thông báo",
-                  //     "Vui lòng xác nhận giao dịch trên ứng dụng VNPT SmartCA");
                 });
               },
               child: Text(
                 'Xác nhận',
-                style: TextStyle(color: Colors.white),
+                style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.white),
               ),
-              // color: Colors.blue,
             )
           ],
         ),
@@ -108,8 +126,9 @@ class _TransactionPageStage extends State<TransactionPage> {
     );
   }
 
-  void showSuccessDialog(String title, String mesg) {
+  void showSuccessDialog(String title, String msg, String status) {
     showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return Dialog(
@@ -117,53 +136,47 @@ class _TransactionPageStage extends State<TransactionPage> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             child: Wrap(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Center(
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.headline6,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    top: 8,
-                  ),
-                  child: RichText(
-                    text: TextSpan(
-                      text: mesg,
-                      children: [
-                        TextSpan(
-                          text: '',
-                          style: Theme.of(context).textTheme.bodyText2,
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Center(
+                        child: Text(
+                          title,
+                          style: Theme.of(context).textTheme.headline6,
+                          textAlign: TextAlign.center,
                         ),
-                      ],
-                      style: Theme.of(context).textTheme.bodyText2,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      'Xác nhận',
-                      style: TextStyle(color: Colors.white),
+                    Icon(status == "0" ? Icons.check_circle : Icons.cancel, size: 100, color: status == "0" ? Colors.lightGreen : Colors.redAccent,),
+                    SizedBox(
+                      height: 10,
                     ),
-                    // color: Colors.blue,
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        top: 8,
+                      ),
+                      child: Text(msg, style: Theme.of(context).textTheme.bodyText2, textAlign: TextAlign.center,),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Đóng',
+                          style: Theme.of(context).textTheme.bodyText2!.copyWith(color: Colors.white),
+                        ),
+                        // color: Colors.blue,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                  ],
                 )
               ],
             ),
