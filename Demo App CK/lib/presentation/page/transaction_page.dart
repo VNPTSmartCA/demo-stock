@@ -1,3 +1,4 @@
+import 'package:demoappck/services/VNPTSmartCAChannel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:demoappck/presentation/page/bang_gia.dart';
@@ -53,20 +54,22 @@ class _TransactionPageStage extends State<TransactionPage> {
             SizedBox(
               height: 10,
             ),
-            FlatButton(
+            ElevatedButton(
               onPressed: () {
                 //get tranID
                 RestClient().createTrans().then((tranID) {
                   print('tranId: $tranID');
-                  showSuccessDialog("Thông báo",
-                      "Vui lòng xác nhận giao dịch trên ứng dụng VNPT SmartCA");
+                  VNPTSmartCAChannel.instance
+                      .requestMapping(tranID, "partnerStockVNPTSmartCA");
+                  // showSuccessDialog("Thông báo",
+                  //     "Vui lòng xác nhận giao dịch trên ứng dụng VNPT SmartCA");
                 });
               },
               child: Text(
                 'Xác nhận',
                 style: TextStyle(color: Colors.white),
               ),
-              color: Colors.blue,
+              // color: Colors.blue,
             )
           ],
         ),
@@ -151,7 +154,7 @@ class _TransactionPageStage extends State<TransactionPage> {
                   height: 10,
                 ),
                 Center(
-                  child: FlatButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -159,7 +162,7 @@ class _TransactionPageStage extends State<TransactionPage> {
                       'Xác nhận',
                       style: TextStyle(color: Colors.white),
                     ),
-                    color: Colors.blue,
+                    // color: Colors.blue,
                   ),
                 )
               ],

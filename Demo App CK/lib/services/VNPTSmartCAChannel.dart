@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class VNPTSmartCAChannel {
-  static const platform = const MethodChannel('com.vnpt.demo.PartnerSmartCA/VNPTSmartCAApp');
+  static const platform =
+      const MethodChannel('com.vnpt.demo.PartnerSmartCA/VNPTSmartCAApp');
 
   VNPTSmartCAChannel._internal();
 
@@ -10,11 +10,11 @@ class VNPTSmartCAChannel {
 
   Future<void> requestMapping(String tranId, String clientId) async {
     try {
-      await platform.invokeMethod('OpenVNPTSmartCA', <String, String> {
+      await platform.invokeMethod('OpenVNPTSmartCA', <String, String>{
         "tranId": tranId,
         "clientId": clientId,
       });
-    } catch(e) {
+    } catch (e) {
       print('Error when requestMapping(): $e');
     }
   }
